@@ -34,9 +34,17 @@ ma_device_config deviceConfig;
 ma_device device;
 ma_waveform_config sineWaveConfig;
 
+bool single_init = false;
+
 JNIEXPORT void JNICALL
 Java_fr_gungun974_androidminiaudioglitchonwakeuptest_MyNativeLib_init(
     JNIEnv *env, jobject thiz) {
+
+  if (single_init) {
+    return;
+  }
+
+  single_init = true;
 
   deviceConfig = ma_device_config_init(ma_device_type_playback);
   deviceConfig.playback.format = DEVICE_FORMAT;
